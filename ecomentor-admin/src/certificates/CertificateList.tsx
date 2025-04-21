@@ -5,35 +5,35 @@ import {
     useResourceContext,
     NumberField,
     TextInput,
-    BooleanField, DatagridConfigurable
+    BooleanField, DatagridConfigurable,
+    BulkDeleteButton, TopToolbar
 } from 'react-admin';
 import { useMeasure } from 'react-use';
 import {Box} from "@mui/material";
 
-const ResourceName = () => {
-    const resource = useResourceContext();
-    return <>{resource}</>;
-}
 
-
-const INNER_PADDING = 32;
 const CertificateFilter = [
-    <TextInput label="Search by Type" source="certificateType" alwaysOn />,
-];
-
+    <TextInput label="Search by Type" source="documentId" alwaysOn />,
+]; //TODO include when filters properly done in backend
 
 export const CertificateList = () => {
 
     const [ref, { width }] = useMeasure<HTMLDivElement>();
     return (
         <Box ref={ref}>
-            <List filters={CertificateFilter}>
-                <ResourceName />
-                <CertificateDatagrid width={width - INNER_PADDING}/>
+            <List actions={<ListActions />} >
+                <CertificateDatagrid width={width}/>
             </List>
         </Box>
     )
 }
+
+const ListActions = () => (
+    <TopToolbar>
+        <BulkDeleteButton />
+    </TopToolbar>
+);
+
 const CertificateDatagrid = (props: { width?: number}) => (
     <DatagridConfigurable
         sx={{

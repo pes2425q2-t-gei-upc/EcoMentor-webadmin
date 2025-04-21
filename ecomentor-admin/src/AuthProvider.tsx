@@ -22,7 +22,15 @@ export const authProvider: AuthProvider = {
             throw new Error(response.statusText);
         }
         const auth = await response.json();
-        localStorage.setItem('auth', JSON.stringify(auth));
+        const userRoles = auth.roles;
+        if (!userRoles || !userRoles.includes('ROLE_ADMIN')) {
+            throw new Error('You do not have admin rights');
+        }
+        else {
+            localStorage.setItem('auth', JSON.stringify(auth));
+        }
+
+
     },
     async checkError(error) {
         const status = error.status;
