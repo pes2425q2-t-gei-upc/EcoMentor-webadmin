@@ -2,7 +2,6 @@ import {
     Create,
     SimpleForm,
     TextInput,
-    EmailField,
 } from 'react-admin';
 
 export const UserCreate = () => (

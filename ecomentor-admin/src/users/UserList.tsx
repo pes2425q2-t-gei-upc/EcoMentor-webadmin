@@ -4,7 +4,7 @@ import {
     InfiniteList,
     useRecordContext,
     useNotify,
-    useRefresh,
+    useRefresh, FunctionField,
 } from 'react-admin';
 
 import RowButton, { RowButtonProps } from "../components/RowButton.tsx";
@@ -99,6 +99,10 @@ export const UserList = () => (
             <Datagrid>
                 <TextField source="name" />
                 <TextField source="email" />
+                <FunctionField
+                    label="Roles"
+                    render={record => (record.roles || []).join(', ')}
+                />
                 <BlockButton />
                 <EditButton />
             </Datagrid>

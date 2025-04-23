@@ -6,20 +6,14 @@ const getResourceUrl = (apiUrl: string, resource: string, id: string | number) =
 };
 
 const mapId = (resource: string, item: any) => {
-    let idValue;
-    if (resource === 'certificate') {
-        idValue = item.certificateId;
-    } else if (resource === 'recommendation') {
-        idValue = item.recommendationId;
-    } else if (resource === 'user') {
-        idValue = item.id;
-    } else {
-        idValue = item.id;
+    switch (resource) {
+        case 'certificate':
+            return { ...item, id: item.certificateId };
+        case 'recommendation':
+            return { ...item, id: item.recommendationId };
+        default:
+            return { ...item, id: item.id };
     }
-    return {
-        ...item,
-        id: idValue,
-    };
 };
 
 const ecomentorDataProvider: DataProvider = (apiUrl, httpClient) => {

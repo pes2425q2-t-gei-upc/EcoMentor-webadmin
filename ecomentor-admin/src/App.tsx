@@ -1,4 +1,4 @@
-import {fetchUtils, Admin, Resource, ThemeProvider, CustomRoutes} from "react-admin";
+import {fetchUtils, Admin, Resource} from "react-admin";
 import { Layout } from "./Layout";
 import { authProvider } from './AuthProvider.tsx';
 import { UserList } from './users/UserList.tsx';
@@ -8,10 +8,9 @@ import {RecommendationList} from "./recommendation/RecommendationList.tsx";
 import {UserShow} from "./users/UserShow.tsx";
 import {CertificateShow} from "./certificates/CertificateShow.tsx";
 import ecomentorTheme from "./theme.tsx";
-import {Route} from "react-router";
-import {Profile} from "./users/Profile.tsx";
 import {UserEdit} from "./users/UserEdit.tsx";
 import {UserCreate} from "./users/UserCreate.tsx";
+import {RoleList} from "./roles/RoleList.tsx";
 
 
 
@@ -37,7 +36,8 @@ export const App = () => {
                 dataProvider={dataProvider}
         >
                 <Resource name="users" list={UserList} show={UserShow} edit={UserEdit}  create={UserCreate} options={{ label: 'Users' }}/>
-                <Resource name="certificate" list={CertificateList} show={CertificateShow} identifier="certificateId" options={{ label: 'Certificates' }}/>
+                <Resource name="roles" list={RoleList} options={{ label: 'Roles' }}/>
+                <Resource name="certificate" list={CertificateList} show={CertificateShow} options={{ label: 'Certificates' }}/>
                 <Resource name="recommendation" list={RecommendationList} options={{ label: 'Recommendations' }}/>
         </Admin>
 

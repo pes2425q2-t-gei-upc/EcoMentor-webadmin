@@ -2,7 +2,6 @@ import {
     DateField,
     TextField,
     List,
-    useResourceContext,
     NumberField,
     TextInput,
     BooleanField, DatagridConfigurable,
