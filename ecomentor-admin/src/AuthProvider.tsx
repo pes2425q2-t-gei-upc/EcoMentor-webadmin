@@ -5,10 +5,8 @@ import type { AuthProvider } from 'react-admin';
 //TODO change to production and ENV urls
 export const authProvider: AuthProvider = {
     async login({ username, password }) {
-        console.log(username, password);
         const apiUrl = import.meta.env.VITE_API_URL;
         const url = `${apiUrl}/auth/login`;
-        console.log("POSTING TO", import.meta.env.VITE_API_URL);
         const request = new Request(url, {
             method: 'POST',
             body: JSON.stringify({ email: username, password: password }),
