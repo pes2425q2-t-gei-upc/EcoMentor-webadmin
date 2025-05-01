@@ -27,7 +27,8 @@ export const App = () => {
         return fetchUtils.fetchJson(url, options);
     };
 
-    const dataProvider = ecomentorDataProvider('http://localhost:8080/api', httpClient);
+    const apiUrl = import.meta.env.VITE_API_URL
+    const dataProvider = ecomentorDataProvider(apiUrl, httpClient);
 
     return   (
         <Admin theme={ecomentorTheme}

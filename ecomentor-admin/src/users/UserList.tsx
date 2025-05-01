@@ -31,7 +31,8 @@ const BlockButton = () => {
 
 
         try {
-            const url = `http://localhost:8080/api/users/${record.id}/${action}`;
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const url = `${apiUrl}/api/users/${record.id}/${action}`;
             const response = await fetch(url, {
                 method: 'PUT',
                 headers: {

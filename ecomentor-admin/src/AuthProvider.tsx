@@ -6,11 +6,13 @@ import type { AuthProvider } from 'react-admin';
 export const authProvider: AuthProvider = {
     async login({ username, password }) {
         console.log(username, password);
-        const request = new Request('http://localhost:8080/auth/login', {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const url = `${apiUrl}/auth/login`;
+        console.log("POSTING TO", import.meta.env.VITE_API_URL);
+        const request = new Request(url, {
             method: 'POST',
             body: JSON.stringify({ email: username, password: password }),
-            headers: new Headers({ 'Content-Type': 'application/json' }),
-            credentials: 'include',
+            headers: new Headers({ 'Content-Type': 'application/json' })
         });
         let response;
         try {

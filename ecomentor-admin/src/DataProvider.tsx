@@ -22,7 +22,7 @@ const ecomentorDataProvider: DataProvider = (apiUrl, httpClient) => {
             const { pagination, sort, filter} = params;
             const { page, perPage } = pagination;
             const { field, order } = sort;
-            let url = `${apiUrl}/${resource}?page=${page - 1}&size=${perPage}`;
+            let url = `${apiUrl}/api/${resource}?page=${page - 1}&size=${perPage}`;
 
             //TODO implement filter appending when done in backend. exclude now
 
@@ -36,20 +36,20 @@ const ecomentorDataProvider: DataProvider = (apiUrl, httpClient) => {
         },
 
         getOne: async (resource, params) => {
-            const url = getResourceUrl(apiUrl, resource, params.id);
+            const url = getResourceUrl(`${apiUrl}/api`, resource, params.id);
             const { json } = await httpClient(url);
             return { data: mapId(resource, json) };
         },
 
         update: async (resource, params) => {
-            const url = getResourceUrl(apiUrl, resource, params.id);
+            const url = getResourceUrl(`${apiUrl}/api`, resource, params.id);
             const { data } = params;
 
             const response = await httpClient(url, {
                 method: 'PUT', // Or PATCH
                 body: JSON.stringify(data),
             });
-            const json = await response.json;
+            const json = await response.json();
 
 
             if (json) {
@@ -64,7 +64,7 @@ const ecomentorDataProvider: DataProvider = (apiUrl, httpClient) => {
         deleteMany: async (resource, params) => {
             const { ids } = params;
             const requests = ids.map(id =>
-                httpClient(`${apiUrl}/${resource}/${id}`, {
+                httpClient(`${apiUrl}/api/${resource}/${id}`, {
                     method: 'DELETE',
                 })
             );
@@ -73,7 +73,7 @@ const ecomentorDataProvider: DataProvider = (apiUrl, httpClient) => {
         },
 
         create: async (resource, params) => {
-            const url = `${apiUrl}/${resource}`;
+            const url = `${apiUrl}/api/${resource}`;
             const { data } = params;
 
             await httpClient(url, {
