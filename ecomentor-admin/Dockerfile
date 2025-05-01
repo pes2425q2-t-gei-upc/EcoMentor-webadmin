@@ -1,12 +1,17 @@
-# Use an official Node.js runtime as a parent image
+# Stage 1: Build React app
 FROM node:18-alpine AS builder
+
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --legacy-peer-deps
 COPY . .
+
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
+
 RUN npm run build
 
-# Stage 2: Serve the static build with a lightweight web server (e.g., nginx)
+# Stage 2: Serve with Nginx
 FROM nginx:alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
